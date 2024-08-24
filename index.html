@@ -8,10 +8,11 @@
 </head>
 <body>
     <form>
-        <h1>Por favor, digite seu CEP</h1>
+        <h1>Digite seu CEP</h1>
         <input type="text" id="cep-number">
         <input type="button" id="btn-search" value="Search">
     </form>
+    <div id="result"></div>
 
     <script>
         $(function() {
@@ -20,6 +21,7 @@
             $('#btn-search').click(function () {
                 
             let cep = $('#cep-number').val();
+            let result = $('#result');
 
                 $.ajax({
                     url: `https://viacep.com.br/ws/${cep}/json/`,
@@ -30,6 +32,15 @@
                 })
                 .done(function (result) {
                     console.log(JSON.stringify(result));
+
+
+                     $('#result').append(`<p class = "item"> CEP: ${result.cep} </p>`);
+                     $('#result').append(`<p class = "item"> Logradouro: ${result.logradouro} </p>`);
+                     $('#result').append(`<p class = "item"> Bairro: ${result.bairro} </p>`);
+                     $('#result').append(`<p class = "item"> Localidade: ${result.localidade} </p>`);
+                     $('#result').append(`<p class = "item"> UF: ${result.uf} </p>`);
+
+
                 })
                 .fail(function (message) {
                     console.log('A requisição falhou e exibiu a seguinte mensagem' + message)
