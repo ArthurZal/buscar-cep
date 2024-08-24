@@ -14,9 +14,29 @@
     </form>
 
     <script>
+        $(function() {
 
+
+            $('#btn-search').click(function () {
+                
+            let cep = $('#cep-number').val();
+
+                $.ajax({
+                    url: `https://viacep.com.br/ws/${cep}/json/`,
+                    type: 'get',
+                    beforeSend: function() {
+                        console.log('Sua requisição está sendo processada');
+                    }
+                })
+                .done(function (result) {
+                    console.log(JSON.stringify(result));
+                })
+                .fail(function (message) {
+                    console.log('A requisição falhou e exibiu a seguinte mensagem' + message)
+                });
+            });
+        });
         
-
     </script>
 </body>
 </html>
